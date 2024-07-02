@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+    <style>
+        :root{
+            --defaultFont: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body{
+            background-color: rgb(3, 80, 106);
+        }
+        .container{
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 20px;
+            width: 98vw;
+            height: 50vh;
+        }
+
+        .container > h2{
+            font-family: var(--defaultFont);
+            text-align: center;
+            font-weight: 600;
+            background-color: indigo;
+            font-size: 1rem;
+            padding: 10px;
+            border-radius: 10px;
+            color: white;
+            font-variant: small-caps;
+        }
+
+        .container > .firstNameInput, .container > .lastNameInput, .container > .emailInput{
+            padding: 10px;
+            font-family: var(--defaultFont);
+            width: 300px;
+            border-radius: 10px;
+            font-weight: 500;
+            border: 1px solid black;
+            height: 100%;
+        }
+
+        .container > .ageInput{
+            padding: 10px;
+            font-family: var(--defaultFont);
+            width: 150px;
+            border-radius: 10px;
+            font-weight: 500;
+            text-align: center;
+            border: 1px solid black;
+            height: 100%;
+        }
+
+        
+        .container > .firstNameInput::placeholder, .container > .lastNameInput::placeholder, .container > .emailInput::placeholder, .container > .ageInput::placeholder{
+            padding: 5px;
+            font-family: var(--defaultFont);
+            text-align: center;
+            
+        }
+
+        .container > .addToTableBtn{
+            padding: 10px;
+            width: 120px;
+            background-color: skyblue;
+            border: none;
+            font-weight: 500;
+            border-radius: 5px;
+            color: black;
+            box-shadow: 1px 1px 10px #87cfeb8a;
+            font-family: var(--defaultFont);
+            text-align: center;
+            transition: 500ms all;
+        }
+
+        .container > .addToTableBtn:hover{
+            background-color: #19bcd1;
+        }
+
+        .tableContainer{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin-top: 50px;
+        }
+        .tableContainer > table{ 
+            border-radius: 5px;
+            font-family: var(--defaultFont);
+            font-weight: 500;
+            outline: 2px solid rgba(0, 0, 0, 0.599);
+            background-color: #f7f1f1;
+            padding: 10px;
+        }
+        .tableContainer > table > thead > tr > td{ 
+            outline: 1px solid black;
+            padding: 7px;
+            text-align: center;
+            outline-offset: 1px;
+            transition: 500ms all;
+        }
+        
+        .tableContainer > table > tbody > tr > td{ 
+            outline: 1px solid black;
+            outline-offset: 1px;
+            padding: 7px;
+            text-align: center;
+            transition: 500ms all;
+        }
+    </style>
+    
+</head>
+<body>
+
+    <div class="container">
+        <h2>~ FILL IN YOUR DETAILS ~</h2>
+            <input placeholder="- Enter your First Name -" id="firstNameInputPlace" class="firstNameInput" type="text">
+            
+            <input placeholder="- Enter your Last Name -" id="lastNameInputPlace" class="lastNameInput" type="text">
+
+            <input placeholder="- Enter your valid Email Address -" id="emailInputPlace" class="emailInput" type="email">
+            
+            <input placeholder="- Enter your Age -" maxlength="3" id="ageInputPlace" class="ageInput" type="number">
+
+            <input id="addToTableBtn" class="addToTableBtn" type="button" value="Add To Table">
+    </div>
+
+
+    <div class="tableContainer">
+        <table>
+            <thead>
+                <tr>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>Email</td>
+                    <td>Age</td>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+            </tbody>
+        </table>
+    </div>
+    
+
+    <script>
+
+        let firstNameInputPlace = document.getElementById('firstNameInputPlace');
+        let lastNameInputPlace = document.getElementById('lastNameInputPlace');
+        let emailInputPlace = document.getElementById('emailInputPlace');
+        let ageInputPlace = document.getElementById('ageInputPlace');
+        let addToTableBtn = document.getElementById('addToTableBtn');
+        
+
+  
+
+        // **************************
+           
+        let tbody = document.getElementById('tableBody');
+
+
+        addToTableBtn.addEventListener("click", () =>{
+
+            
+            let tr = document.createElement('tr');
+            let tdForFirstName = document.createElement('td');
+            let tdForLastName = document.createElement('td');
+            let tdForEmail = document.createElement('td');
+            let tdForAge = document.createElement('td');
+
+            let emailInputValue = emailInputPlace.value;
+            let emailInputVerify = emailInputValue.includes('@');
+
+            if (firstNameInputPlace.value === "" || lastNameInputPlace.value === "" || emailInputPlace.value === "" || ageInputPlace.value === "") {
+                alert("Please fill in your details!!")
+            } else if(emailInputVerify === false){
+                alert("Please enter a valid email address")
+            } else if (ageInputPlace.value < 1){
+                alert("Please enter a valid age")
+            }
+             else {
+                tr.appendChild(tdForFirstName);
+                tr.appendChild(tdForLastName);
+                tr.appendChild(tdForEmail);
+                tr.appendChild(tdForAge);
+
+                // ********************
+
+                tbody.appendChild(tr);
+
+                // **********************
+
+                tdForFirstName.innerHTML = firstNameInputPlace.value.trim().toUpperCase().charAt(0) + firstNameInputPlace.value.slice(1);
+                tdForLastName.innerHTML = lastNameInputPlace.value.trim().toUpperCase().charAt(0) + lastNameInputPlace.value.slice(1);
+                tdForEmail.innerHTML = emailInputPlace.value.trim();
+                tdForAge.innerHTML = ageInputPlace.value.trim();
+
+                firstNameInputPlace.value = "";
+                lastNameInputPlace.value = "";
+                emailInputPlace.value = "";
+                ageInputPlace.value = "";
+            }   
+
+        });
+    </script>
+</body>
+</html>
